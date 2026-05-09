@@ -1,7 +1,22 @@
 import random
 import pygame
 import sys 
-     
+pygame.init()
+pygame.display.set_caption("Sudoku Puzzles")
+resolution = (800,600)
+screen = pygame.display.set_mode(resolution)
+font = pygame.font.SysFont("arial", 40)
+white = (255,255,255)
+black = (0,0,0)
+blue = (50,50,255)
+gray = (200,200,200)
+x = 500
+y = 600
+running = True 
+fullscreen = None
+cell_size = x // 9
+
+
 grid_easy1 = [
     [6,0,7,4,0,0,0,5,0],
     [0,3,0,0,0,1,0,2,8],
@@ -105,29 +120,29 @@ grids_easy = [grid_easy1, grid_easy2, grid_easy3]
 grids_medium = [grid_medium1, grid_medium2, grid_medium3]
 grids_hard = [grid_hard1, grid_hard2, grid_hard3]
 
-def main():
-    pygame.init()
-    pygame.display.set_caption("Sudoku Puzzles")
-    resolution = (800,600)
-    screen = pygame.display.set_mode(resolution)
-    white = (255,255,255)
-    black = (0,0,0)
-    blue = (50,50,255)
-    gray = (200,200,200)
-    
-    running = True 
-    fullscreen = None 
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+def draw_grid():
+    for i in range(10):
+        if i % 3 == 0:
+            thickness = 4
+        else:
+            thickness = 1
+        pygame.draw.line(screen, black, (i* cell_size,0), (i*cell_size, x), thickness)
+        pygame.draw.line(screen, black, (0,i*cell_size), (x, i * cell_size), thickness)
+
+
+running = True 
+fullscreen = None 
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_f:
-                    fullscreen = not fullscreen
-                    if fullscreen:
-                        screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
-                    else:
-                        screen = pygame.display.set_mode(resolution)
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_f:
+                fullscreen = not fullscreen
+                if fullscreen:
+                    screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+                else:
+                    screen = pygame.display.set_mode(resolution)
 
 
     pygame.quit()

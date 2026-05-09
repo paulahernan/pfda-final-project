@@ -1,9 +1,6 @@
 import random
 import pygame
-x = 0 
-y = 0
-diff = 500/9
-val = 0 
+import sys 
      
 grid_easy1 = [
     [6,0,7,4,0,0,0,5,0],
@@ -104,14 +101,19 @@ grid_hard3 = [
     [2,0,9,0,8,0,0,5,0],
     [0,8,0,0,4,0,0,0,0]
 ]
+grids_easy = [grid_easy1, grid_easy2, grid_easy3]
+grids_medium = [grid_medium1, grid_medium2, grid_medium3]
+grids_hard = [grid_hard1, grid_hard2, grid_hard3]
 
 def main():
     pygame.init()
     pygame.display.set_caption("Sudoku Puzzles")
-    Clock = pygame.time.Clock()
-    dt = 0 
     resolution = (800,600)
     screen = pygame.display.set_mode(resolution)
+    white = (255,255,255)
+    black = (0,0,0)
+    blue = (50,50,255)
+    gray = (200,200,200)
     
     running = True 
     fullscreen = None 
@@ -127,9 +129,7 @@ def main():
                     else:
                         screen = pygame.display.set_mode(resolution)
 
-    white = pygame.Color(255,255,255)
-    screen.fill(white)
-    dt = Clock.tick(12)
+
     pygame.quit()
 
 if __name__=="__main__":

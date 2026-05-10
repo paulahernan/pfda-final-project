@@ -120,14 +120,12 @@ grid_hard3 = [
     [0,8,0,0,4,0,0,0,0]
 ]
 
-for row in range(9):
-        for col in range(9):
-
-            number = grid_easy1[row][col]
-
-grids_easy = [grid_easy1, grid_easy2, grid_easy3]
-grids_medium = [grid_medium1, grid_medium2, grid_medium3]
-grids_hard = [grid_hard1, grid_hard2, grid_hard3]
+#def current_grid():
+    #grids_easy = [grid_easy1, grid_easy2, grid_easy3]
+    #idx = random.randrange(3)
+    #return grids_easy(idx)
+#grids_medium = [grid_medium1, grid_medium2, grid_medium3]
+#grids_hard = [grid_hard1, grid_hard2, grid_hard3]
 
 def draw_grid():
     for i in range(10):
@@ -206,6 +204,9 @@ while running:
                       num = 9
                  else:
                       num = None
+                 if num:
+                      if valid(grid_easy1,num,(row,col)):
+                           grid_easy1[row][col] = num
 
     screen.fill(white)
     draw_grid()

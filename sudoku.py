@@ -137,6 +137,21 @@ def draw_grid():
             thickness = 1
         pygame.draw.line(screen, black, (i* cell_size,0), (i*cell_size, width), thickness)
         pygame.draw.line(screen, black, (0,i*cell_size), (width, i * cell_size), thickness)
+def draw_numbers():
+        for row in range(9):
+            for col in range(9):
+                 number = grid_easy1[row][col]
+
+                 if number != 0:
+                    text = font.render(str(number), True, black)
+
+                    x = col * cell_size + 18
+                    y = row * cell_size + 10
+                    screen.blit(text, (x,y))
+def draw_selection():
+     if selected:
+          row,col = selected
+          pygame.draw.rect(screen,blue,(col*cell_size,row*cell_size,cell_size),4)
 
 running = True 
 fullscreen = None 
@@ -178,6 +193,7 @@ while running:
 
     screen.fill(white)
     draw_grid()
+    draw_numbers()
     pygame.display.update()
 
 

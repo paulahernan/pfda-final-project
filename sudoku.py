@@ -139,7 +139,7 @@ def draw_grid():
         pygame.draw.line(screen, black, (0,i*cell_size), (width, i * cell_size), thickness)
 def draw_numbers():
         for row in range(9):
-            for col in range(9):
+          for col in range(9):
                  number = grid_easy1[row][col]
 
                  if number != 0:
@@ -152,6 +152,22 @@ def draw_selection():
      if selected:
           row,col = selected
           pygame.draw.rect(screen,blue,(col*cell_size,row*cell_size,cell_size,cell_size),4)
+def valid(board,num,pos):
+     row,col = pos
+
+     for i in range(9):
+          if board[row][i] == num and i != col:
+               return False
+     for i in range(9):
+          if board[i][col] == num and i != row:
+               return False 
+     cell_y = row // 3
+     cell_x = col // 3
+     for i in range(cell_y*3,cell_y*3 +3):
+          for j in range(cell_x*3, cell_x*3 +3):
+               if board[i][j] == num and (i,j) != pos:
+                    return False
+     return True
 
 running = True 
 fullscreen = None 

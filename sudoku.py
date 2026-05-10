@@ -1,6 +1,7 @@
 import random
 import pygame
 import sys 
+
 pygame.init()
 pygame.display.set_caption("Sudoku Puzzles")
 resolution = (800,600)
@@ -10,11 +11,13 @@ white = (255,255,255)
 black = (0,0,0)
 blue = (50,50,255)
 gray = (200,200,200)
-x = 500
-y = 600
+width = 500
+height = 600
 running = True 
 fullscreen = None
-cell_size = x // 9
+cell_size = width // 9
+selected = None
+
 
 
 grid_easy1 = [
@@ -116,6 +119,12 @@ grid_hard3 = [
     [2,0,9,0,8,0,0,5,0],
     [0,8,0,0,4,0,0,0,0]
 ]
+
+for row in range(9):
+        for col in range(9):
+
+            number = grid_easy1[row][col]
+
 grids_easy = [grid_easy1, grid_easy2, grid_easy3]
 grids_medium = [grid_medium1, grid_medium2, grid_medium3]
 grids_hard = [grid_hard1, grid_hard2, grid_hard3]
@@ -126,9 +135,8 @@ def draw_grid():
             thickness = 4
         else:
             thickness = 1
-        pygame.draw.line(screen, black, (i* cell_size,0), (i*cell_size, x), thickness)
-        pygame.draw.line(screen, black, (0,i*cell_size), (x, i * cell_size), thickness)
-
+        pygame.draw.line(screen, black, (i* cell_size,0), (i*cell_size, width), thickness)
+        pygame.draw.line(screen, black, (0,i*cell_size), (width, i * cell_size), thickness)
 
 running = True 
 fullscreen = None 
@@ -144,8 +152,37 @@ while running:
                 else:
                     screen = pygame.display.set_mode(resolution)
 
+        if event.type == pygame.KEYDOWN and selected:
+            row, col = selected 
+            if grid_easy1[row][col] == 0:
+                 if event.key == pygame.K_1:
+                      num = 1
+                 elif event.key == pygame.K_2:
+                      num = 2
+                 elif event.key == pygame.K_3:
+                      num = 3
+                 elif event.key == pygame.K_4:
+                      num = 4
+                 elif event.key == pygame.K_5:
+                      num = 5
+                 elif event.key == pygame.K_6:
+                      num = 6
+                 elif event.key == pygame.K_7:
+                      num = 7
+                 elif event.key == pygame.K_8:
+                      num = 8
+                 elif event.key == pygame.K_9:
+                      num = 9
+                 else:
+                      num = None
 
-    pygame.quit()
+    screen.fill(white)
+    draw_grid()
+    pygame.display.update()
 
-if __name__=="__main__":
-    main()
+
+pygame.quit()
+sys.exit()
+
+#if __name__=="__main__":
+    #main()

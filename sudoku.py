@@ -151,7 +151,7 @@ def draw_numbers():
 def draw_selection():
      if selected:
           row,col = selected
-          pygame.draw.rect(screen,blue,(col*cell_size,row*cell_size,cell_size),4)
+          pygame.draw.rect(screen,blue,(col*cell_size,row*cell_size,cell_size,cell_size),4)
 
 running = True 
 fullscreen = None 
@@ -194,6 +194,7 @@ while running:
     screen.fill(white)
     draw_grid()
     draw_numbers()
+    draw_selection()
     pygame.display.update()
 
 

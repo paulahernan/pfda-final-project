@@ -101,7 +101,7 @@ grid_hard3 = [
     [2,0,9,0,8,0,0,5,0],
     [0,8,0,0,4,0,0,0,0]
 ]
-class Button():
+class Buttons():
     def __init__(self, pos, width, height,text_input, font, base_color, hovering_color):
 
         self.x_pos = pos[0]
@@ -159,11 +159,12 @@ class Sudoku():
         self.green = (0,250,0)
         self.width = 500
         self.cell_size = self.width // 9
-        self.selected = None
-        self.current_grid = self.get_grid()
-        self.editable_grid = [row[:] for row in self.current_grid]
-        self.font = pygame.font.SysFont("arial", 40)
         self.display = "menu"
+        self.selected = None
+        self.current_grid = None
+        self.editable_grid = None
+        self.title_font = pygame.font.SysFont("arial", 70)
+        self.font = pygame.font.SysFont("arial", 40)
         center = self.resolution[0] // 2
         self.easy = Buttons((center, 200), 250, 70, "EASY", self.font, self.gray, self.green)
         self.medium = Buttons((center,320),250,70, "MEDIUM", self.font, self.gray,self.green)
@@ -174,15 +175,16 @@ class Sudoku():
         if level == "easy":
             grids_easy = [grid_easy1, grid_easy2, grid_easy3]
             idx = random.randrange(3) 
-            return grids_easy[idx]
+            current_grid = grids_easy[idx]
         elif level == "medium":
             grids_medium = [grid_medium1, grid_medium2, grid_medium3]
             idx = random.randrange(3)
-            return grids_medium[idx]
+            current_grid = grids_medium[idx]
         elif level == "hard":
             grids_hard = [grid_hard1, grid_hard2, grid_hard3]
             idx = random.randrange(3)
-            return grids_hard[idx]
+            current_grid = grids_hard[idx]
+        return current_grid, [row[:] for row in current_grid]
         
     def play(self):
        self.screen.fill(self.white)
@@ -261,20 +263,21 @@ def main():
 
     running = True  
     while running:
+        mouse = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
             if game.display == "menu":
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if game.easy.clicked(mouse)
+                    if game.easy.clicked(mouse):
                         game.current_grid,game.editable_grid = game.get_grid("easy")
                         game.display = "game"
-                elif event.medium.clicked(mouse):
-                    game.current_grid, game.editable_grid = game.get_grid("medium")
-                    game.display = "game"
-                elif game.hard.clicked(mouse):
-                    game.current_grid, game.editable_grid = game.get_grid("hard")
-                    game.display = "game"
+                    elif game.medium.clicked(mouse):
+                        game.current_grid, game.editable_grid = game.get_grid("medium")
+                        game.display = "game"
+                    elif game.hard.clicked(mouse):
+                        game.current_grid, game.editable_grid = game.get_grid("hard")
+                        game.display = "game"
             elif game.display == "game":
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x,y = pygame.mouse.get_pos()

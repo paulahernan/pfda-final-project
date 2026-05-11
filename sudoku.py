@@ -182,9 +182,15 @@ while running:
                     screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
                 else:
                     screen = pygame.display.set_mode(resolution)
-
+        if event.type == pygame.MOUSEBUTTONDOWN:
+             x,y = pygame.mouse.get_pos()
+             if x < width and y < width:
+                  col = x // cell_size
+                  row = y // cell_size
+                  selected = (row,col)
         if event.type == pygame.KEYDOWN and selected:
             row, col = selected 
+            num = None
             if current_grid[row][col] == 0:
                  if event.key == pygame.K_1:
                       num = 1

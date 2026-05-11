@@ -112,7 +112,6 @@ class Sudoku():
         self.gray = (200,200,200)
         self.green = (0,250,0)
         self.width = 500
-        self.height = 600
         self.cell_size = self.width // 9
         self.selected = None
         self.current_grid = self.get_grid()
@@ -120,8 +119,7 @@ class Sudoku():
         self.font = pygame.font.SysFont("arial", 40)
     def get_grid(self):
         grids_easy = [grid_easy1, grid_easy2, grid_easy3]
-        idx = random.randrange(3)
-        grids_easy[idx] 
+        idx = random.randrange(3) 
         #grids_medium = [grid_medium1, grid_medium2, grid_medium3]
         #grids_hard = [grid_hard1, grid_hard2, grid_hard3]
         
@@ -192,7 +190,7 @@ def main():
     pygame.init()
     pygame.display.set_caption("Sudoku Puzzles")
     game = Sudoku()
-    
+
     running = True  
     while running:
         for event in pygame.event.get():

@@ -8,6 +8,8 @@
 
  ## Description 
     This project is a simple Sudoku game in which the player can solve up to 9 sudoku puzzles while giving them the liberty of choosing their own difficulty- 3 puzzles per level.
+
+    When I rename my python file it seems to erase all of my commit history and I couldn't find out how to fix this, so sudoku.py has all my progression and commit history but project.py is my completed finalized project.
     
     The program opens at a main menu showcasing "SUDOKU" as the title while displaying three interactable buttons that read "EASY","MEDIUM", and "HARD" which lead the player to different levels of sudoku puzzles. When one of the buttons is pressed, the program randomly chooses one puzzle out of three to showcase for each difficulty. The screen/display then displays the sudoku puzzle which is interactable; if a cell from the board is clicked, the cell will be highlighted in blue to indicate it is selected and with player input- the player can select the corresponding number for the puzzle. If the player makes a mistake, the program allows for a number to be deleted by clicking backspace. The program also gives the player a handy "back" button which leads them back to the main menu. In case the program needs to be closed, it allows this by clicking the x button on top of the window display. 
 

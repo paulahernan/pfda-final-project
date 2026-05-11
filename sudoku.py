@@ -1,6 +1,5 @@
 import random
 import pygame
-<<<<<<< HEAD
 import sys 
 
 grid_easy1 = [
@@ -245,13 +244,10 @@ class Sudoku():
                if board[i][j] == num and (i,j) != pos:
                     return False
      return True
-=======
->>>>>>> 6e03b1f (Creating the display window with Pygame)
 
 def main():
     pygame.init()
     pygame.display.set_caption("Sudoku Puzzles")
-<<<<<<< HEAD
     game = Sudoku()
 
     running = True  
@@ -317,31 +313,6 @@ def main():
         pygame.display.update()
     pygame.quit()
     sys.exit()
-=======
-    Clock = pygame.time.Clock()
-    dt = 0 
-    resolution = (800,600)
-    screen = pygame.display.set_mode(resolution)
-
-    running = True 
-    fullscreen = None 
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_f:
-                    fullscreen = not fullscreen
-                    if fullscreen:
-                        screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
-                    else:
-                        screen = pygame.display.set_mode(resolution)
-
-    white = pygame.Color(255,255,255)
-    screen.fill(white)
-    dt = Clock.tick(12)
-    pygame.quit()
->>>>>>> 6e03b1f (Creating the display window with Pygame)
 
 if __name__=="__main__":
     main()

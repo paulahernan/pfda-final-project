@@ -103,42 +103,33 @@ grid_hard3 = [
 ]
 class Buttons():
     def __init__(self, pos, width, height,text_input, font, base_color, hovering_color):
-
         self.x_pos = pos[0]
         self.y_pos = pos[1]
-
         self.width = width
         self.height = height
-
         self.font = font
         self.base_color = base_color
         self.hovering_color = hovering_color
         self.text_input = text_input
         self.current_color = self.base_color
-
         self.rect = pygame.Rect(self.x_pos - width // 2,self.y_pos - height // 2,width,height)
-
         self.text = self.font.render(self.text_input, True, (0, 0, 0))
         self.text_rect = self.text.get_rect(center=(self.x_pos, self.y_pos))
 
-    # ORIGINAL METHOD
     def update(self, screen):
         pygame.draw.rect(screen, self.current_color,
                          self.rect, border_radius=12)
         screen.blit(self.text, self.text_rect)
 
-    # ORIGINAL CLICK CHECK
     def Input(self, position):
         return self.rect.collidepoint(position)
 
-    # ORIGINAL HOVER LOGIC
     def change_color(self, position):
         if self.rect.collidepoint(position):
             self.current_color = self.hovering_color
         else:
             self.current_color = self.base_color
 
-    # ---- MINIMAL COMPATIBILITY (NOT CHANGING ORIGINAL STYLE) ----
     def draw(self, screen):
         self.update(screen)
 
@@ -253,8 +244,6 @@ class Sudoku():
                if board[i][j] == num and (i,j) != pos:
                     return False
      return True
-
-
 
 def main():
     pygame.init()

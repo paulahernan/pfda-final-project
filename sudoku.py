@@ -264,12 +264,27 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                x,y = pygame.mouse.get_pos()
-                if x < game.width and y < game.width:
-                  col = x // game.cell_size
-                  row = y // game.cell_size
-                  game.selected = (row,col)
+            if game.display == "menu":
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if game.easy.clicked(mouse)
+                        game.current_grid,game.editable_grid = game.get_grid("easy")
+                        game.display = "game"
+                elif event.medium.clicked(mouse):
+                    game.current_grid, game.editable_grid = game.get_grid("medium")
+                    game.display = "game"
+                elif game.hard.clicked(mouse):
+                    game.current_grid, game.editable_grid = game.get_grid("hard")
+                    game.display = "game"
+            elif game.display == "game":
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    x,y = pygame.mouse.get_pos()
+                    if x < game.width and y < game.width:
+                        col = x // game.cell_size
+                        row = y // game.cell_size
+                        game.selected = (row,col)
+                    elif game.back.clicked(mouse):
+                        game.state = "menu"
+
             if event.type == pygame.KEYDOWN and game.selected:
                 row, col = game.selected 
                 num = None
@@ -297,6 +312,7 @@ def main():
                     if num:
                       if game.valid(game.editable_grid,num,(row,col)):
                            game.editable_grid[row][col] = num
+        
 
         game.play()
         pygame.display.update()

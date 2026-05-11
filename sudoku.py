@@ -101,7 +101,53 @@ grid_hard3 = [
     [2,0,9,0,8,0,0,5,0],
     [0,8,0,0,4,0,0,0,0]
 ]
+class Button():
+    def __init__(self, pos, width, height,text_input, font, base_color, hovering_color):
 
+        self.x_pos = pos[0]
+        self.y_pos = pos[1]
+
+        self.width = width
+        self.height = height
+
+        self.font = font
+        self.base_color = base_color
+        self.hovering_color = hovering_color
+        self.text_input = text_input
+        self.current_color = self.base_color
+
+        self.rect = pygame.Rect(self.x_pos - width // 2,self.y_pos - height // 2,width,height)
+
+        self.text = self.font.render(self.text_input, True, (0, 0, 0))
+        self.text_rect = self.text.get_rect(center=(self.x_pos, self.y_pos))
+
+    # ORIGINAL METHOD
+    def update(self, screen):
+        pygame.draw.rect(screen, self.current_color,
+                         self.rect, border_radius=12)
+        screen.blit(self.text, self.text_rect)
+
+    # ORIGINAL CLICK CHECK
+    def Input(self, position):
+        return self.rect.collidepoint(position)
+
+    # ORIGINAL HOVER LOGIC
+    def change_color(self, position):
+        if self.rect.collidepoint(position):
+            self.current_color = self.hovering_color
+        else:
+            self.current_color = self.base_color
+
+    # ---- MINIMAL COMPATIBILITY (NOT CHANGING ORIGINAL STYLE) ----
+    def draw(self, screen):
+        self.update(screen)
+
+    def check_hover(self, position):
+        self.change_color(position)
+
+    def clicked(self, position):
+        return self.Input(position)
+    
 class Sudoku():
     def __init__(self):
         self.resolution = (800,600)
@@ -117,6 +163,12 @@ class Sudoku():
         self.current_grid = self.get_grid()
         self.editable_grid = [row[:] for row in self.current_grid]
         self.font = pygame.font.SysFont("arial", 40)
+        self.display = "menu"
+        center = self.resolution[0] // 2
+        self.easy = Buttons((center, 200), 250, 70, "EASY", self.font, self.gray, self.green)
+        self.medium = Buttons((center,320),250,70, "MEDIUM", self.font, self.gray,self.green)
+        self.hard = Buttons((center,440), 250,70, "MEDIUM", self.font, self.gray, self.green)
+        self.back = Buttons((center,550),250,70,"BACK", self.font, self.gray, self.green)
 
     def get_grid(self,level):
         if level == "easy":
@@ -134,9 +186,17 @@ class Sudoku():
         
     def play(self):
        self.screen.fill(self.white)
-       self.draw_grid()
-       self.draw_numbers()
-       self.draw_selection()
+       if self.display == "menu":
+           title = self.title_font.render("SUDOKU", True, self.blue)
+           title_rect = title.get_rect(center=(self.resolution[0]//2,80))
+           self.screen.blit(title,title_rect)
+           for buttons in [self.easy,self.medium,self.hard]:
+               buttons.draw(self.screen)
+       elif self.display == "game":
+            self.draw_grid()
+            self.draw_numbers()
+            self.draw_selection()
+            self.back.draw(self.screen)
 
     def draw_grid(self):
         for i in range(10):

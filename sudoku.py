@@ -2,24 +2,6 @@ import random
 import pygame
 import sys 
 
-pygame.init()
-pygame.display.set_caption("Sudoku Puzzles")
-resolution = (800,600)
-screen = pygame.display.set_mode(resolution)
-font = pygame.font.SysFont("arial", 40)
-white = (255,255,255)
-black = (0,0,0)
-blue = (50,50,255)
-gray = (200,200,200)
-width = 500
-height = 600
-running = True 
-fullscreen = None
-cell_size = width // 9
-selected = None
-
-
-
 grid_easy1 = [
     [6,0,7,4,0,0,0,5,0],
     [0,3,0,0,0,1,0,2,8],
@@ -120,39 +102,74 @@ grid_hard3 = [
     [0,8,0,0,4,0,0,0,0]
 ]
 
+class Sudoku():
+    def __init__(self):
+        self.resolution = (800,600)
+        self.screen = pygame.display.set_mode(self.resolution)
+        self.white = (255,255,255)
+        self.black = (0,0,0)
+        self.blue = (50,50,255)
+        self.gray = (200,200,200)
+        self.green = (0,250,0)
+        self.width = 500
+        self.height = 600
+        self.cell_size = self.width // 9
+        self.selected = None
+        self.current_grid = self.get_grid()
+        self.editable_grid = [row[:] for row in self.current_grid]
+        self.font = pygame.font.SysFont("arial", 40)
+    def get_grid(self):
+        grids_easy = [grid_easy1, grid_easy2, grid_easy3]
+        idx = random.randrange(3)
+        grids_easy[idx] 
+        #grids_medium = [grid_medium1, grid_medium2, grid_medium3]
+        #grids_hard = [grid_hard1, grid_hard2, grid_hard3]
+        
+        return grids_easy[idx]
+    def play(self):
+       self.screen.fill(self.white)
+       self.draw_grid()
+       self.draw_numbers()
+       self.draw_selection()
 
-grids_easy = [grid_easy1, grid_easy2, grid_easy3]
-idx = random.randrange(3)
-current_grid = grids_easy[idx]
+    def draw_grid(self):
+        for i in range(10):
+            if i % 3 == 0:
+                thickness = 4
+            else:
+                thickness = 1
+        
+            pygame.draw.line(
+                self.screen, 
+                self.black, 
+                (i* self.cell_size,0), 
+                (i*self.cell_size, self.width),
+                thickness
+            )
+            pygame.draw.line(
+                self.screen, 
+                self.black, 
+                (0,i*self.cell_size), 
+                (self.width, i * self.cell_size),
+                thickness
+            )
 
-editable_grid = [row[:] for row in current_grid]
-#grids_medium = [grid_medium1, grid_medium2, grid_medium3]
-#grids_hard = [grid_hard1, grid_hard2, grid_hard3]
-
-def draw_grid():
-    for i in range(10):
-        if i % 3 == 0:
-            thickness = 4
-        else:
-            thickness = 1
-        pygame.draw.line(screen, black, (i* cell_size,0), (i*cell_size, width), thickness)
-        pygame.draw.line(screen, black, (0,i*cell_size), (width, i * cell_size), thickness)
-def draw_numbers():
+    def draw_numbers(self):
         for row in range(9):
-          for col in range(9):
-                 number = editable_grid[row][col]
+            for col in range(9):
+                number = self.editable_grid[row][col]
 
-                 if number != 0:
-                    text = font.render(str(number), True, black)
+                if number != 0:
+                    text = self.font.render(str(number), True, self.black)
 
-                    x = col * cell_size + 18
-                    y = row * cell_size + 10
-                    screen.blit(text, (x,y))
-def draw_selection():
-     if selected:
-          row,col = selected
-          pygame.draw.rect(screen,blue,(col*cell_size,row*cell_size,cell_size,cell_size),4)
-def valid(board,num,pos):
+                    x = col * self.cell_size + 18
+                    y = row * self.cell_size + 10
+                    self.screen.blit(text, (x,y))
+    def draw_selection(self):
+     if self.selected:
+          row,col = self.selected
+          pygame.draw.rect(self.screen,self.blue,(col*self.cell_size,row*self.cell_size,self.cell_size,self.cell_size),4)
+    def valid(self,board,num,pos):
      row,col = pos
 
      for i in range(9):
@@ -169,62 +186,56 @@ def valid(board,num,pos):
                     return False
      return True
 
-running = True 
-fullscreen = None 
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+
+
+def main():
+    pygame.init()
+    pygame.display.set_caption("Sudoku Puzzles")
+    game = Sudoku()
+    
+    running = True  
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
                 running = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_f:
-                fullscreen = not fullscreen
-                if fullscreen:
-                    screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
-                else:
-                    screen = pygame.display.set_mode(resolution)
-        if event.type == pygame.MOUSEBUTTONDOWN:
-             x,y = pygame.mouse.get_pos()
-             if x < width and y < width:
-                  col = x // cell_size
-                  row = y // cell_size
-                  selected = (row,col)
-        if event.type == pygame.KEYDOWN and selected:
-            row, col = selected 
-            num = None
-            if current_grid[row][col] == 0:
-                 if event.key == pygame.K_1:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x,y = pygame.mouse.get_pos()
+                if x < game.width and y < game.width:
+                  col = x // game.cell_size
+                  row = y // game.cell_size
+                  game.selected = (row,col)
+            if event.type == pygame.KEYDOWN and game.selected:
+                row, col = game.selected 
+                num = None
+                if game.current_grid[row][col] == 0:
+                    if event.key == pygame.K_1:
                       num = 1
-                 elif event.key == pygame.K_2:
+                    elif event.key == pygame.K_2:
                       num = 2
-                 elif event.key == pygame.K_3:
+                    elif event.key == pygame.K_3:
                       num = 3
-                 elif event.key == pygame.K_4:
+                    elif event.key == pygame.K_4:
                       num = 4
-                 elif event.key == pygame.K_5:
+                    elif event.key == pygame.K_5:
                       num = 5
-                 elif event.key == pygame.K_6:
+                    elif event.key == pygame.K_6:
                       num = 6
-                 elif event.key == pygame.K_7:
+                    elif event.key == pygame.K_7:
                       num = 7
-                 elif event.key == pygame.K_8:
+                    elif event.key == pygame.K_8:
                       num = 8
-                 elif event.key == pygame.K_9:
+                    elif event.key == pygame.K_9:
                       num = 9
-                 elif event.key == pygame.K_BACKSPACE:
-                      editable_grid[row][col] = 0
-                 if num:
-                      if valid(editable_grid,num,(row,col)):
-                           editable_grid[row][col] = num
+                    elif event.key == pygame.K_BACKSPACE:
+                      game.editable_grid[row][col] = 0
+                    if num:
+                      if game.valid(game.editable_grid,num,(row,col)):
+                           game.editable_grid[row][col] = num
 
-    screen.fill(white)
-    draw_grid()
-    draw_numbers()
-    draw_selection()
-    pygame.display.update()
+        game.play()
+        pygame.display.update()
+    pygame.quit()
+    sys.exit()
 
-
-pygame.quit()
-sys.exit()
-
-#if __name__=="__main__":
-    #main()
+if __name__=="__main__":
+    main()

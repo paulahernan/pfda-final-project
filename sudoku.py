@@ -140,7 +140,7 @@ def draw_grid():
 def draw_numbers():
         for row in range(9):
           for col in range(9):
-                 number = current_grid[row][col]
+                 number = editable_grid[row][col]
 
                  if number != 0:
                     text = font.render(str(number), True, black)

@@ -4,6 +4,7 @@
  https://github.com/paulahernan/pfda-final-project.git 
 
  ## Video 
+ https://youtu.be/k2rheeDikyo
 
  ## Description 
     This project is a simple Sudoku game in which the player can solve up to 9 sudoku puzzles while giving them the liberty of choosing their own difficulty- 3 puzzles per level.

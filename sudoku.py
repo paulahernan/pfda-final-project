@@ -124,6 +124,8 @@ grid_hard3 = [
 grids_easy = [grid_easy1, grid_easy2, grid_easy3]
 idx = random.randrange(3)
 current_grid = grids_easy[idx]
+
+editable_grid = [row[:] for row in current_grid]
 #grids_medium = [grid_medium1, grid_medium2, grid_medium3]
 #grids_hard = [grid_hard1, grid_hard2, grid_hard3]
 
@@ -202,11 +204,11 @@ while running:
                       num = 8
                  elif event.key == pygame.K_9:
                       num = 9
-                 else:
-                      num = None
+                 elif event.key == pygame.K_BACKSPACE:
+                      editable_grid[row][col] = 0
                  if num:
-                      if valid(current_grid,num,(row,col)):
-                           current_grid[row][col] = num
+                      if valid(editable_grid,num,(row,col)):
+                           editable_grid[row][col] = num
 
     screen.fill(white)
     draw_grid()

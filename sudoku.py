@@ -168,7 +168,7 @@ class Sudoku():
         center = self.resolution[0] // 2
         self.easy = Buttons((center, 200), 250, 70, "EASY", self.font, self.gray, self.green)
         self.medium = Buttons((center,320),250,70, "MEDIUM", self.font, self.gray,self.green)
-        self.hard = Buttons((center,440), 250,70, "MEDIUM", self.font, self.gray, self.green)
+        self.hard = Buttons((center,440), 250,70, "HARD", self.font, self.gray, self.green)
         self.back = Buttons((center,550),250,70,"BACK", self.font, self.gray, self.green)
 
     def get_grid(self,level):
@@ -286,7 +286,7 @@ def main():
                         row = y // game.cell_size
                         game.selected = (row,col)
                     elif game.back.clicked(mouse):
-                        game.state = "menu"
+                        game.display = "menu"
 
             if event.type == pygame.KEYDOWN and game.selected:
                 row, col = game.selected 

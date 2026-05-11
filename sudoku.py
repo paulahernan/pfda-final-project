@@ -312,7 +312,10 @@ def main():
                     if num:
                       if game.valid(game.editable_grid,num,(row,col)):
                            game.editable_grid[row][col] = num
-        
+        for buttons in [game.easy, game.medium, game.hard]:
+            buttons.check_hover(mouse)
+        if game.display == "game":
+            game.back.check_hover(mouse)
 
         game.play()
         pygame.display.update()

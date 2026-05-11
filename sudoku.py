@@ -117,13 +117,21 @@ class Sudoku():
         self.current_grid = self.get_grid()
         self.editable_grid = [row[:] for row in self.current_grid]
         self.font = pygame.font.SysFont("arial", 40)
-    def get_grid(self):
-        grids_easy = [grid_easy1, grid_easy2, grid_easy3]
-        idx = random.randrange(3) 
-        #grids_medium = [grid_medium1, grid_medium2, grid_medium3]
-        #grids_hard = [grid_hard1, grid_hard2, grid_hard3]
+
+    def get_grid(self,level):
+        if level == "easy":
+            grids_easy = [grid_easy1, grid_easy2, grid_easy3]
+            idx = random.randrange(3) 
+            return grids_easy[idx]
+        elif level == "medium":
+            grids_medium = [grid_medium1, grid_medium2, grid_medium3]
+            idx = random.randrange(3)
+            return grids_medium[idx]
+        elif level == "hard":
+            grids_hard = [grid_hard1, grid_hard2, grid_hard3]
+            idx = random.randrange(3)
+            return grids_hard[idx]
         
-        return grids_easy[idx]
     def play(self):
        self.screen.fill(self.white)
        self.draw_grid()

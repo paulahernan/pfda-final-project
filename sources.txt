@@ -1,0 +1,15 @@
+Sudoku puzzle references:
+    https://www.geeksforgeeks.org/python/building-and-visualizing-sudoku-game-using-pygame/
+    https://medium.com/@ishitanegi09/building-a-sudoku-game-in-python-using-backtracking-8d218ea84e1b
+    https://github.com/PiyushG14/Pygame-sudoku/blob/main/sudoku.py
+    https://stackoverflow.com/questions/45471152/how-to-create-a-sudoku-puzzle-in-python
+
+Previous labs/chapter notes that helped me:
+    Digital rain lab (Pygame, class, methods, event loops)
+    Rock, Paper, Scissors lab (conditional statments to get specific results)
+    pattern quilt generator lab (Operators and grids)
+    magic sorting hat lab (Random library)
+
+Main Menu references:
+    https://github.com/baraltech/Menu-System-PyGame/tree/main/assets
+    https://programmingpixels.com/handling-a-title-screen-game-flow-and-buttons-in-pygame.html
